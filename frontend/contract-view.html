@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xem hợp đồng</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body { background: transparent; padding: 0; margin: 0; }
+      .wrap { padding: 16px; }
+      .kv { display:flex; gap:8px; }
+      .kv span { color: var(--text-dim); min-width: 120px; }
+      .section-title { margin: 0 0 8px; font-weight: 600; }
+      .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+      .table-compact th, .table-compact td { padding: 8px 10px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="container" style="padding:0; margin-bottom: 12px;">
+        <nav style="display:flex; gap:8px; align-items:center;">
+          <button class="btn">Chỉnh sửa</button>
+          <button class="btn primary">Giao xe</button>
+          <button class="btn">Trả xe</button>
+          <button class="btn">Hoàn tất</button>
+        </nav>
+      </header>
+
+      <main class="container" style="padding:0;">
+        <section class="card">
+          <div class="grid-2">
+            <div>
+              <h3 class="section-title">Thông tin hợp đồng</h3>
+              <div class="kv"><span>Mã hợp đồng</span><strong>HD000123</strong></div>
+              <div class="kv"><span>Nguồn</span><strong>Facebook</strong></div>
+              <div class="kv"><span>Ngày thuê</span><strong>13/10/2025 17:00</strong></div>
+              <div class="kv"><span>Ngày trả</span><strong>15/10/2025 18:00</strong></div>
+              <div class="kv"><span>Chi nhánh thuê</span><strong>Chi nhánh 1</strong></div>
+              <div class="kv"><span>Địa điểm giao</span><strong>Tổ 1, Phương Thiện, Hà Giang</strong></div>
+              <div class="kv"><span>Ghi chú</span><strong>Khách hàng yêu cầu giao xe tại khách sạn</strong></div>
+            </div>
+            <div>
+              <h3 class="section-title">Khách hàng</h3>
+              <div class="kv"><span>Họ tên</span><strong>Đinh Mạnh Hòa</strong></div>
+              <div class="kv"><span>SĐT</span><strong>0901234567</strong></div>
+              <div class="kv"><span>CCCD</span><strong>0010920042339</strong></div>
+              <div class="kv"><span>Quốc gia</span><strong>Việt Nam</strong></div>
+              <div class="kv"><span>Số hợp đồng thuê</span><strong>5</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="table-header">
+            <h3>Danh sách xe</h3>
+            <div class="text-dim">Thời gian thuê: 2 ngày 1 giờ</div>
+          </div>
+          <div class="table-wrapper">
+            <table class="table-compact contract-view-table" style="width:100%">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Loại xe</th>
+                  <th>Xe</th>
+                  <th>Biển số xe</th>
+                  <th class="right">Giá/ngày</th>
+                  <th class="right">Giá/giờ</th>
+                  <th class="right">Tiền thuê</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Xe số</td>
+                  <td>Honda Wave Alpha</td>
+                  <td>33A4-00056</td>
+                  <td class="right">200,000</td>
+                  <td class="right">20,000</td>
+                  <td class="right">420,000</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Xe số</td>
+                  <td>Honda Wave Alpha</td>
+                  <td>33A4-00086</td>
+                  <td class="right">200,000</td>
+                  <td class="right">20,000</td>
+                  <td class="right">420,000</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Xe ga</td>
+                  <td>Yamaha PG-1</td>
+                  <td>33A4-00007</td>
+                  <td class="right">200,000</td>
+                  <td class="right">20,000</td>
+                  <td class="right">420,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer right">
+            <strong>Tổng tiền thuê xe: 1,260,000đ</strong>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="table-header">
+            <h3>Danh sách phụ thu</h3>
+          </div>
+          <div class="table-wrapper">
+            <table class="table-compact" style="width:100%">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Lý do thu</th>
+                  <th class="right">Số tiền</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Phí trả xe tại khu vực khác</td>
+                  <td class="right">2,000,000đ</td>
+                  <td>Khách hàng yêu cầu giao xe tại khách sạn</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer right">
+            <strong>Tổng tiền phụ thu: 2,000,000đ</strong>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3 class="section-title">Thông tin thanh toán</h3>
+          <div class="grid">
+            <div class="field"><label>Tiền thuê xe:</label><strong>1,260,000đ</strong></div>
+            <div class="field"><label>Tổng phụ thu:</label><strong>2,200,000đ</strong></div>
+            <div class="field"><label>Tổng tiền:</label><strong>3,360,000đ</strong></div>
+            <div class="field"><label>Đã thanh toán:</label><strong>3,000,000đ</strong></div>
+            <div class="field"><label>Phải thu khách:</label><strong style="color: var(--primary)">360,000đ</strong></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3 class="section-title">Lịch sử thanh toán</h3>
+          <div class="table-wrapper">
+            <table class="table-compact" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Mã TT</th>
+                  <th>Phương thức</th>
+                  <th class="right">Số tiền</th>
+                  <th>Ngày thanh toán</th>
+                  <th>Nhân viên</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TT000558</td>
+                  <td>Chuyển khoản NH</td>
+                  <td class="right">500,000đ</td>
+                  <td>13/10/2025 14:50</td>
+                  <td>Demo</td>
+                  <td>Đặt cọc</td>
+                </tr>
+                <tr>
+                  <td>TT000559</td>
+                  <td>Tiền mặt</td>
+                  <td class="right">1,000,000đ</td>
+                  <td>15/10/2025 16:10</td>
+                  <td>Demo</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+  </html>
+
+
+
+

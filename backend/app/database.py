@@ -12,7 +12,7 @@ load_dotenv()
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     # Mặc định: Postgres local; cập nhật trong .env nếu khác
-    "postgresql+psycopg2://postgres:hldn2108@localhost:5432/HoaDB6",
+    "postgresql+psycopg2://postgres:Phan-MinH:9zZ@localhost:5432/Car_rental",
 )
 
 
