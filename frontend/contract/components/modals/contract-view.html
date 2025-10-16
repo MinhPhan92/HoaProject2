@@ -1,0 +1,93 @@
+<div class="modal" id="modalContractView" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-dialog wide">
+    <div class="modal-header">
+      <h3>Contract Preview</h3>
+      <button type="button" id="btnCloseContractView" class="icon-btn" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <section class="doc">
+        <header class="doc-header row-between">
+          <div>
+            <h2 class="doc-title">Vehicle Rental Contract</h2>
+            <div class="doc-meta muted">No: <span id="contractViewNumber">—</span></div>
+          </div>
+          <div class="doc-brand">
+            <div class="brand-name">Company</div>
+            <div class="brand-meta muted" id="contractViewBranch">—</div>
+          </div>
+        </header>
+
+        <div class="doc-section">
+          <h3>Customer</h3>
+          <div class="kv"><span class="k">Name</span><span class="v" id="contractViewCustomer">—</span></div>
+          <div class="kv"><span class="k">Phone</span><span class="v" id="contractViewCustomerPhone">—</span></div>
+          <div class="kv"><span class="k">ID/Passport</span><span class="v" id="contractViewCustomerId">—</span></div>
+          <div class="kv"><span class="k">Address</span><span class="v" id="contractViewCustomerAddress">—</span></div>
+        </div>
+
+        <div class="doc-section">
+          <h3>Vehicle</h3>
+          <div class="kv"><span class="k">Vehicle</span><span class="v" id="contractViewVehicle">—</span></div>
+          <div class="kv"><span class="k">Plate</span><span class="v" id="contractViewPlate">—</span></div>
+          <div class="kv"><span class="k">Type</span><span class="v" id="contractViewType">—</span></div>
+          <div class="kv"><span class="k">Seats</span><span class="v" id="contractViewSeats">—</span></div>
+        </div>
+
+        <div class="doc-section">
+          <h3>Rental</h3>
+          <div class="kv"><span class="k">Period</span><span class="v" id="contractViewPeriod">—</span></div>
+          <div class="kv"><span class="k">Rental days</span><span class="v" id="contractViewRentalDays">0</span></div>
+          <div class="kv"><span class="k">Price/day</span><span class="v" id="contractViewDailyPrice">0</span></div>
+          <div class="kv"><span class="k">Vehicle subtotal</span><span class="v" id="contractViewVehicleSubtotal">0</span></div>
+        </div>
+
+        <div class="doc-section">
+          <h3>Surcharges</h3>
+          <table class="table compact">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody id="contractViewSurchargesTableBody">
+              <tr class="muted"><td colspan="4">No surcharges.</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2" class="right">Total: <strong id="contractViewSurchargeTotal">0</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="doc-section">
+          <h3>Totals</h3>
+          <div class="kv"><span class="k">Deposit</span><span class="v" id="contractViewDeposit">0</span></div>
+          <div class="kv"><span class="k">Discount</span><span class="v" id="contractViewDiscount">0</span></div>
+          <div class="kv total"><span class="k">Grand total</span><span class="v" id="contractViewGrandTotal">0</span></div>
+          <div class="kv"><span class="k">Paid now</span><span class="v" id="contractViewPaidNow">0</span></div>
+          <div class="kv"><span class="k">Remaining</span><span class="v" id="contractViewRemaining">0</span></div>
+        </div>
+
+        <div class="doc-section">
+          <h3>Notes</h3>
+          <div id="contractViewNotes" class="notes muted">—</div>
+        </div>
+      </section>
+    </div>
+    <div class="modal-footer row-between">
+      <div class="muted">Review details before printing or saving.</div>
+      <div class="actions">
+        <button type="button" id="btnPrintContract" class="btn">Print</button>
+        <button type="button" id="btnCloseContractViewFooter" class="btn primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

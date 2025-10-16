@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contract Demo</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    label { display: block; margin-top: 10px; }
+    input, select, textarea { width: 250px; padding: 6px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 8px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>📝 Demo - Tạo hợp đồng thuê xe</h2>
+
+  <form id="contractForm">
+    <label>Khách hàng ID:</label>
+    <input type="number" id="customer_id" value="1">
+
+    <label>Ngày bắt đầu:</label>
+    <input type="datetime-local" id="start_date">
+
+    <label>Ngày kết thúc:</label>
+    <input type="datetime-local" id="end_date">
+
+    <label>Chi nhánh nhận xe:</label>
+    <input type="number" id="branch_receive_id" value="1">
+
+    <label>Chi nhánh trả xe:</label>
+    <input type="number" id="branch_return_id" value="1">
+
+    <label>Tiền đặt cọc:</label>
+    <input type="number" id="deposit" value="500000">
+
+    <label>Nguồn thuê:</label>
+    <select id="rental_source">
+      <option value="Walk-in">Walk-in</option>
+      <option value="Online">Online</option>
+    </select>
+
+    <label>Ghi chú:</label>
+    <textarea id="note"></textarea>
+
+    <button type="button" onclick="createContract()">Tạo hợp đồng</button>
+  </form>
+
+  <div id="status"></div>
+
+  <script>
+    async function createContract() {
+      const data = {
+        customer_id: parseInt(document.getElementById('customer_id').value),
+        start_date: document.getElementById('start_date').value,
+        end_date: document.getElementById('end_date').value,
+        branch_receive_id: parseInt(document.getElementById('branch_receive_id').value),
+        branch_return_id: parseInt(document.getElementById('branch_return_id').value),
+        deposit: parseFloat(document.getElementById('deposit').value),
+        rental_source: document.getElementById('rental_source').value,
+        note: document.getElementById('note').value
+      };
+
+      const res = await fetch("http://127.0.0.1:8000/contracts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const status = document.getElementById("status");
+      if (res.ok) {
+        status.textContent = "✅ Tạo hợp đồng thành công!";
+        status.style.color = "green";
+      } else {
+        status.textContent = "❌ Lỗi khi tạo hợp đồng!";
+        status.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

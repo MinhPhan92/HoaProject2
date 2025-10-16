@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contract Management</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Contract Management</h1>
+    </header>
+
+    <main class="app-container">
+      <!-- Quick Test: Minimal Contract Creator -->
+      <section class="section" id="quick-contract-test">
+        <h2>Quick Contract Test</h2>
+        <form id="quickContractForm">
+          <div class="form-row">
+            <label for="qcCustomerId">CustomerID</label>
+            <input id="qcCustomerId" name="qcCustomerId" type="number" placeholder="e.g. 1" required />
+          </div>
+          <div class="form-row">
+            <label for="qcStart">StartDate</label>
+            <input id="qcStart" name="qcStart" type="date" />
+          </div>
+          <div class="form-row">
+            <label for="qcEnd">EndDate</label>
+            <input id="qcEnd" name="qcEnd" type="date" />
+          </div>
+          <div class="form-row">
+            <label for="qcNotes">Notes</label>
+            <input id="qcNotes" name="qcNotes" type="text" placeholder="optional" />
+          </div>
+          <div class="form-row">
+            <button type="submit">Create Contract</button>
+          </div>
+          <div id="qcResult" class="form-note"></div>
+        </form>
+      </section>
+      <!-- Contract form -->
+      <section id="contract-form-section" class="section">
+        <div data-include="components/contract-form.html"></div>
+      </section>
+
+      <!-- Vehicle table + Surcharge table side by side (if CSS allows) -->
+      <section class="section two-col">
+        <div class="col">
+          <div data-include="components/vehicle-table.html"></div>
+        </div>
+        <div class="col">
+          <div data-include="components/surcharge-table.html"></div>
+        </div>
+      </section>
+
+      <!-- Payment section -->
+      <section id="payment-section" class="section">
+        <div data-include="components/payment-section.html"></div>
+      </section>
+    </main>
+
+    <!-- Modals (kept near end of body) -->
+    <div id="modals-root">
+      <div data-include="components/modals/create-contract.html"></div>
+      <div data-include="components/modals/contract-view.html"></div>
+      <div data-include="components/modals/select-vehicle.html"></div>
+      <div data-include="components/modals/surcharge.html"></div>
+    </div>
+
+    <!-- Simple include loader to inject component HTML files -->
+    <script>
+      (function loadIncludes() {
+        const includeElements = document.querySelectorAll('[data-include]');
+        includeElements.forEach(function (el) {
+          const path = el.getAttribute('data-include');
+          if (!path) return;
+          fetch(path)
+            .then(function (res) {
+              if (!res.ok) throw new Error('Failed to load ' + path);
+              return res.text();
+            })
+            .then(function (html) {
+              el.innerHTML = html;
+            })
+            .catch(function (err) {
+              console.error(err);
+              el.innerHTML = '<div class="include-error">Could not load ' + path + '</div>';
+            });
+        });
+      })();
+    </script>
+
+    <!-- App scripts -->
+    <script src="js/api.js" defer></script>
+    <script src="js/contract-test.js" defer></script>
+    <script src="js/vehicle.js" defer></script>
+    <script src="js/surcharge.js" defer></script>
+    <script src="js/contract.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+  </html>
+
+

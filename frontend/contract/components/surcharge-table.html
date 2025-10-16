@@ -1,0 +1,41 @@
+<section class="card">
+  <div class="card-header row-between">
+    <h2>Surcharges</h2>
+    <div class="controls">
+      <button type="button" id="btnOpenSurchargeModal" class="btn">Add surcharge</button>
+      <button type="button" id="btnClearSurcharges" class="btn danger">Clear all</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table" id="surchargeTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Unit</th>
+            <th>Qty</th>
+            <th>Amount</th>
+            <th>Note</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="surchargeTableBody">
+          <tr class="muted">
+            <td colspan="7">No surcharges added.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-footer row-between">
+    <div class="muted">Items: <span id="surchargeCount">0</span></div>
+    <div class="total">
+      Total surcharge: <strong id="surchargeTotalAmount">0</strong>
+    </div>
+  </div>
+</section>
+
+

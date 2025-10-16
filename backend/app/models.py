@@ -1,8 +1,10 @@
 from datetime import date
+from typing import Optional
 
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Column,
     Date,
     ForeignKey,
     Integer,
@@ -10,25 +12,57 @@ from sqlalchemy import (
     String,
     text,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import relationship
 
 from .database import Base
+
+
+class Customer(Base):
+    __tablename__ = "customer"
+
+    CustomerID = Column("customerid", Integer, primary_key=True, index=True)
+    FullName = Column("fullname", String(100), nullable=False)
+    Phone = Column("phone", String(15), nullable=True)
+    Email = Column("email", String(100), nullable=True)
+    Address = Column("address", String(200), nullable=True)
+    CitizenID = Column("citizenid", String(12), nullable=True)
+    RegistrationDate = Column("registrationdate", Date, server_default=text("CURRENT_DATE"), nullable=True)
+    IsDeleted = Column("isdeleted", Boolean, server_default=text("FALSE"))
+
+    contracts = relationship("Contract", back_populates="customer")
+
+
+class Branch(Base):
+    __tablename__ = "branch"
+
+    BranchID = Column("branchid", Integer, primary_key=True, index=True)
+    BranchName = Column("branchname", String(100), nullable=False)
+    Address = Column("address", String(200), nullable=True)
+    Phone = Column("phone", String(15), nullable=True)
+
+
+class Car(Base):
+    __tablename__ = "car"
+
+    CarID = Column("carid", Integer, primary_key=True, index=True)
+    LicensePlate = Column("licenseplate", String(20), nullable=False)
+    DailyRate = Column("dailyrate", Numeric(15, 2), nullable=True)
+    HourlyRate = Column("hourlyrate", Numeric(15, 2), nullable=True)
+    Status = Column("status", String(100), nullable=True)
+
+    contract_cars = relationship("ContractCar", back_populates="car")
 
 
 class Contract(Base):
     __tablename__ = "contract"
 
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, primary_key=True, index=True)
-    CustomerID: Mapped[int] = mapped_column("customerid", Integer, ForeignKey("customer.customerid"), nullable=False)
-    StartDate: Mapped[date | None] = mapped_column("startdate", Date, nullable=True)
-    EndDate: Mapped[date | None] = mapped_column("enddate", Date, nullable=True)
-    TotalAmount: Mapped[float | None] = mapped_column("totalamount", Numeric(15, 2), nullable=True)
-    Status: Mapped[str | None] = mapped_column("status", String(100), nullable=True)
-    Notes: Mapped[str | None] = mapped_column("notes", String(200), nullable=True)
-
-    customer: Mapped["Customer"] = relationship(back_populates="contracts")
-    contract_cars: Mapped[list["ContractCar"]] = relationship(back_populates="contract", cascade="all, delete-orphan")
-    payments: Mapped[list["ContractPayment"]] = relationship(back_populates="contract", cascade="all, delete-orphan")
+    ContractID = Column("contractid", Integer, primary_key=True, index=True)
+    CustomerID = Column("customerid", Integer, ForeignKey("customer.customerid"))
+    StartDate = Column("startdate", Date, nullable=True)
+    EndDate = Column("enddate", Date, nullable=True)
+    TotalAmount = Column("totalamount", Numeric(15, 2), nullable=True)
+    Status = Column("status", String(100), nullable=True)
+    Notes = Column("notes", String(200), nullable=True)
 
     __table_args__ = (
         CheckConstraint(
@@ -37,100 +71,75 @@ class Contract(Base):
         ),
     )
 
-
-class Customer(Base):
-    __tablename__ = "customer"
-
-    CustomerID: Mapped[int] = mapped_column("customerid", Integer, primary_key=True, index=True)
-    FullName: Mapped[str] = mapped_column("fullname", String(100))
-    Phone: Mapped[str | None] = mapped_column("phone", String(15), nullable=True)
-    Email: Mapped[str | None] = mapped_column("email", String(100), nullable=True)
-    Address: Mapped[str | None] = mapped_column("address", String(200), nullable=True)
-    CitizenID: Mapped[str | None] = mapped_column("citizenid", String(12), nullable=True)
-    RegistrationDate: Mapped[date | None] = mapped_column(
-        "registrationdate", Date, server_default=text("CURRENT_DATE"), nullable=True
-    )
-    IsDeleted: Mapped[bool | None] = mapped_column("isdeleted", Boolean, server_default=text("FALSE"))
-
-    contracts: Mapped[list["Contract"]] = relationship(back_populates="customer", cascade="all, delete-orphan")
-
-
-class Car(Base):
-    __tablename__ = "car"
-
-    CarID: Mapped[int] = mapped_column("carid", Integer, primary_key=True, index=True)
-    LicensePlate: Mapped[str] = mapped_column("licenseplate", String(20))
-    DailyRate: Mapped[float | None] = mapped_column("dailyrate", Numeric(15, 2), nullable=True)
-    HourlyRate: Mapped[float | None] = mapped_column("hourlyrate", Numeric(15, 2), nullable=True)
-    Status: Mapped[str | None] = mapped_column("status", String(100), nullable=True)
-
-    contract_cars: Mapped[list["ContractCar"]] = relationship(back_populates="car")
+    customer = relationship("Customer", back_populates="contracts")
+    contract_cars = relationship("ContractCar", back_populates="contract")
+    payments = relationship("ContractPayment", back_populates="contract")
 
 
 class ContractCar(Base):
     __tablename__ = "contractcar"
 
-    ContractCarID: Mapped[int] = mapped_column("contractcarid", Integer, primary_key=True, index=True)
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, ForeignKey("contract.contractid"))
-    CarID: Mapped[int] = mapped_column("carid", Integer, ForeignKey("car.carid"))
-    Amount: Mapped[float | None] = mapped_column("amount", Numeric(15, 2), nullable=True)
-    ReturnMileage: Mapped[int | None] = mapped_column("returnmileage", Integer, nullable=True)
-    CarCondition: Mapped[str | None] = mapped_column("carcondition", String(100), nullable=True)
+    ContractCarID = Column("contractcarid", Integer, primary_key=True, index=True)
+    ContractID = Column("contractid", Integer, ForeignKey("contract.contractid"))
+    CarID = Column("carid", Integer, ForeignKey("car.carid"))
+    Amount = Column("amount", Numeric(15, 2), nullable=True)
+    ReturnMileage = Column("returnmileage", Integer, nullable=True)
+    CarCondition = Column("carcondition", String(100), nullable=True)
 
-    contract: Mapped["Contract"] = relationship(back_populates="contract_cars")
-    car: Mapped["Car"] = relationship(back_populates="contract_cars")
+    contract = relationship("Contract", back_populates="contract_cars")
+    car = relationship("Car", back_populates="contract_cars")
 
 
 class ContractPayment(Base):
     __tablename__ = "contractpayment"
 
-    PaymentID: Mapped[int] = mapped_column("paymentid", Integer, primary_key=True, index=True)
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, ForeignKey("contract.contractid"))
-    PaymentMethod: Mapped[str | None] = mapped_column("paymentmethod", String(100), nullable=True)
-    Amount: Mapped[float | None] = mapped_column("amount", Numeric(15, 2), nullable=True)
-    PaymentDate: Mapped[date | None] = mapped_column("paymentdate", Date, nullable=True)
-    Notes: Mapped[str | None] = mapped_column("notes", String(200), nullable=True)
-    PaymentType: Mapped[int | None] = mapped_column("paymenttype", Integer, nullable=True)
+    PaymentID = Column("paymentid", Integer, primary_key=True, index=True)
+    ContractID = Column("contractid", Integer, ForeignKey("contract.contractid"))
+    PaymentMethod = Column("paymentmethod", String(100), nullable=True)
+    Amount = Column("amount", Numeric(15, 2), nullable=True)
+    PaymentDate = Column("paymentdate", Date, nullable=True)
+    Notes = Column("notes", String(200), nullable=True)
+    PaymentType = Column("paymenttype", Integer, nullable=True)
 
-    contract: Mapped["Contract"] = relationship(back_populates="payments")
+    contract = relationship("Contract", back_populates="payments")
 
 
 class Surcharge(Base):
     __tablename__ = "surcharge"
 
-    SurchargeID: Mapped[int] = mapped_column("surchargeid", Integer, primary_key=True, index=True)
-    SurchargeName: Mapped[str | None] = mapped_column("surchargename", String(100), nullable=True)
-    UnitPrice: Mapped[float | None] = mapped_column("unitprice", Numeric(15, 2), nullable=True)
-    Description: Mapped[str | None] = mapped_column("description", String(200), nullable=True)
+    SurchargeID = Column("surchargeid", Integer, primary_key=True, index=True)
+    SurchargeName = Column("surchargename", String(100), nullable=True)
+    UnitPrice = Column("unitprice", Numeric(15, 2), nullable=True)
+    Description = Column("description", String(200), nullable=True)
 
 
 class ContractSurcharge(Base):
     __tablename__ = "contractsurcharge"
 
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, ForeignKey("contract.contractid"), primary_key=True)
-    SurchargeID: Mapped[int] = mapped_column("surchargeid", Integer, ForeignKey("surcharge.surchargeid"), primary_key=True)
-    UnitPrice: Mapped[float | None] = mapped_column("unitprice", Numeric(15, 2), nullable=True)
-    Quantity: Mapped[int | None] = mapped_column("quantity", Integer, nullable=True)
+    ContractID = Column("contractid", Integer, ForeignKey("contract.contractid"), primary_key=True)
+    SurchargeID = Column("surchargeid", Integer, ForeignKey("surcharge.surchargeid"), primary_key=True)
+    UnitPrice = Column("unitprice", Numeric(15, 2), nullable=True)
+    Quantity = Column("quantity", Integer, nullable=True)
 
 
 class DeliveryReceipt(Base):
     __tablename__ = "deliveryreceipt"
 
-    DeliveryID: Mapped[int] = mapped_column("deliveryid", Integer, primary_key=True, index=True)
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, ForeignKey("contract.contractid"))
-    DeliveryEmployeeID: Mapped[int | None] = mapped_column("deliveryemployeeid", Integer, nullable=True)
-    ReceiverEmployeeID: Mapped[int | None] = mapped_column("receiveremployeeid", Integer, nullable=True)
-    DeliveryDate: Mapped[date | None] = mapped_column("deliverydate", Date, nullable=True)
-    CarConditionAtDelivery: Mapped[str | None] = mapped_column("carconditionatdelivery", String(200), nullable=True)
-    Notes: Mapped[str | None] = mapped_column("notes", String(200), nullable=True)
+    DeliveryID = Column("deliveryid", Integer, primary_key=True, index=True)
+    ContractID = Column("contractid", Integer, ForeignKey("contract.contractid"))
+    DeliveryEmployeeID = Column("deliveryemployeeid", Integer, nullable=True)
+    ReceiverEmployeeID = Column("receiveremployeeid", Integer, nullable=True)
+    DeliveryDate = Column("deliverydate", Date, nullable=True)
+    CarConditionAtDelivery = Column("carconditionatdelivery", String(200), nullable=True)
+    Notes = Column("notes", String(200), nullable=True)
 
 
 class ReturnReceipt(Base):
     __tablename__ = "returnreceipt"
 
-    ReturnID: Mapped[int] = mapped_column("returnid", Integer, primary_key=True, index=True)
-    ContractID: Mapped[int] = mapped_column("contractid", Integer, ForeignKey("contract.contractid"))
-    ReceiverEmployeeID: Mapped[int | None] = mapped_column("receiveremployeeid", Integer, nullable=True)
-    ReceiverBranchID: Mapped[int | None] = mapped_column("receiverbranchid", Integer, nullable=True)
-    ReturnDate: Mapped[date | None] = mapped_column("returndate", Date, nullable=True)
-    Notes: Mapped[str | None] = mapped_column("notes", String(200), nullable=True)
+    ReturnID = Column("returnid", Integer, primary_key=True, index=True)
+    ContractID = Column("contractid", Integer, ForeignKey("contract.contractid"))
+    ReceiverEmployeeID = Column("receiveremployeeid", Integer, nullable=True)
+    ReceiverBranchID = Column("receiverbranchid", Integer, nullable=True)
+    ReturnDate = Column("returndate", Date, nullable=True)
+    Notes = Column("notes", String(200), nullable=True)

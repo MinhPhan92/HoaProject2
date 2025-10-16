@@ -1,0 +1,48 @@
+<section class="card">
+  <div class="card-header row-between">
+    <h2>Available Vehicles</h2>
+    <div class="controls">
+      <input type="text" id="vehicleSearch" placeholder="Search by brand/model/plate" />
+      <select id="vehicleTypeFilter">
+        <option value="">All types</option>
+      </select>
+      <button type="button" id="btnRefreshVehicles" class="btn">Refresh</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table" id="vehicleTable">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Type</th>
+            <th>Seats</th>
+            <th>Plate</th>
+            <th>Price/Day</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="vehicleTableBody">
+          <tr class="muted">
+            <td colspan="9">No vehicles loaded.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-footer row-between">
+    <div id="vehicleTotal" class="muted">0 vehicles</div>
+    <div class="pagination">
+      <button type="button" id="vehiclePrevPage" class="btn" disabled>Prev</button>
+      <span id="vehiclePageInfo" class="muted">Page 1</span>
+      <button type="button" id="vehicleNextPage" class="btn" disabled>Next</button>
+    </div>
+  </div>
+</section>
+
+

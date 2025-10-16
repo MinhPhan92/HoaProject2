@@ -1,0 +1,42 @@
+<div class="modal" id="modalSurcharge" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3>Add Surcharge</h3>
+      <button type="button" id="btnCloseSurcharge" class="icon-btn" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="surchargeForm" autocomplete="off">
+        <input type="hidden" id="surchargeId" />
+
+        <div class="form-field">
+          <label for="surchargeName">Name</label>
+          <input type="text" id="surchargeName" placeholder="Fuel, Late return, Cleaning..." required />
+        </div>
+
+        <div class="form-field">
+          <label for="surchargeUnitPrice">Unit price</label>
+          <input type="number" id="surchargeUnitPrice" min="0" step="1000" placeholder="0" required />
+        </div>
+        <div class="form-field">
+          <label for="surchargeQuantity">Quantity</label>
+          <input type="number" id="surchargeQuantity" min="1" step="1" value="1" required />
+        </div>
+
+        <div class="form-field">
+          <label for="surchargeNote">Note</label>
+          <textarea id="surchargeNote" rows="3" placeholder="Optional note..."></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer row-between">
+      <div class="muted" id="surchargeHint">Enter surcharge details and save.</div>
+      <div class="actions">
+        <button type="button" id="btnCancelSurcharge" class="btn">Cancel</button>
+        <button type="button" id="btnSaveSurcharge" class="btn primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

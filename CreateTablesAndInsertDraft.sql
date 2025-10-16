@@ -46,22 +46,22 @@ CREATE TABLE Customer (
     IsDeleted BOOLEAN DEFAULT FALSE
 );
 
--- 6. CarBrand
-CREATE TABLE CarBrand (
+-- 6. VehicleBrand
+CREATE TABLE VehicleBrand (
     BrandID SERIAL PRIMARY KEY,
     BrandName VARCHAR(100) NOT NULL
 );
 
--- 7. CarType
-CREATE TABLE CarType (
+-- 7. VehicleType
+CREATE TABLE VehicleType (
     TypeID SERIAL PRIMARY KEY,
     TypeName VARCHAR(100),
     Description VARCHAR(200),
     RentalPrice DECIMAL(15,2)
 );
 
--- 8. Car
-CREATE TABLE Car (
+-- 8. Vehicle
+CREATE TABLE Vehicle (
     CarID SERIAL PRIMARY KEY,
     LicensePlate VARCHAR(20) UNIQUE NOT NULL,
     Color VARCHAR(50),
@@ -87,14 +87,14 @@ CREATE TABLE Contract (
     Notes VARCHAR(200)
 );
 
--- 10. ContractCar
-CREATE TABLE ContractCar (
-    ContractCarID SERIAL PRIMARY KEY,
+-- 10. ContractVehicle
+CREATE TABLE ContractVehicle (
+    ContractVehicleID SERIAL PRIMARY KEY,
     ContractID INT NOT NULL REFERENCES Contract(ContractID),
-    CarID INT REFERENCES Car(CarID),
+    VehicleID INT REFERENCES Vehicle(VehicleID),
     Amount DECIMAL(15,2),
     ReturnMileage INT,
-    CarCondition VARCHAR(100)
+    VehicleCondition VARCHAR(100)
 );
 
 -- 11. ContractPayment
@@ -115,7 +115,7 @@ CREATE TABLE DeliveryReceipt (
     DeliveryEmployeeID INT REFERENCES Employee(EmployeeID),
     ReceiverEmployeeID INT REFERENCES Employee(EmployeeID),
     DeliveryDate DATE,
-    CarConditionAtDelivery VARCHAR(200),
+    VehicleConditionAtDelivery VARCHAR(200),
     Notes VARCHAR(200)
 );
 

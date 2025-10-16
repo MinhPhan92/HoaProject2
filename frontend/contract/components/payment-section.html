@@ -1,0 +1,68 @@
+<section class="card">
+  <div class="card-header row-between">
+    <h2>Payment Summary</h2>
+    <div class="controls">
+      <button type="button" id="btnRecalculateTotals" class="btn">Recalculate</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="summary-grid">
+      <div class="summary-block">
+        <h3>Contract</h3>
+        <div class="kv"><span class="k">Customer</span><span class="v" id="summaryCustomerName">—</span></div>
+        <div class="kv"><span class="k">Vehicle</span><span class="v" id="summaryVehicle">—</span></div>
+        <div class="kv"><span class="k">Period</span><span class="v" id="summaryPeriod">—</span></div>
+        <div class="kv"><span class="k">Rental days</span><span class="v" id="summaryRentalDays">0</span></div>
+      </div>
+
+      <div class="summary-block">
+        <h3>Pricing</h3>
+        <div class="kv"><span class="k">Price/day</span><span class="v" id="summaryVehicleDailyPrice">0</span></div>
+        <div class="kv"><span class="k">Vehicle subtotal</span><span class="v" id="summaryVehicleSubtotal">0</span></div>
+        <div class="kv"><span class="k">Surcharges</span><span class="v" id="summarySurchargeTotal">0</span></div>
+        <div class="kv input">
+          <label for="summaryDiscountAmount" class="k">Discount</label>
+          <input type="number" id="summaryDiscountAmount" min="0" step="1000" value="0" />
+        </div>
+      </div>
+
+      <div class="summary-block">
+        <h3>Payment</h3>
+        <div class="kv input">
+          <label for="paymentValueType" class="k">Value type</label>
+          <select id="paymentValueType">
+            <option value="total">Total value</option>
+            <option value="deposit">Deposit</option>
+            <option value="remaining">Remaining</option>
+          </select>
+        </div>
+        <div class="kv input">
+          <label for="paymentMethod" class="k">Method</label>
+          <select id="paymentMethod">
+            <option value="Cash">Cash</option>
+            <option value="Transfer">Transfer</option>
+            <option value="Card">Card</option>
+          </select>
+        </div>
+        <div class="kv"><span class="k">Deposit</span><span class="v" id="summaryDeposit">0</span></div>
+        <div class="kv total"><span class="k">Grand total</span><span class="v" id="summaryGrandTotal">0</span></div>
+        <div class="kv input">
+          <label for="paymentNowAmount" class="k">Pay now</label>
+          <input type="number" id="paymentNowAmount" min="0" step="1000" value="0" />
+        </div>
+        <div class="kv"><span class="k">Remaining</span><span class="v" id="summaryRemaining">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer row-between">
+    <div class="muted">Ensure details are correct before creating the contract.</div>
+    <div class="actions">
+      <button type="button" id="btnPreviewInvoice" class="btn">Preview</button>
+      <button type="button" id="btnConfirmPayment" class="btn primary">Confirm & Create</button>
+    </div>
+  </div>
+</section>
+
+

@@ -1,0 +1,46 @@
+<div class="modal" id="modalSelectVehicle" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3>Select Vehicle</h3>
+      <button type="button" id="btnCloseSelectVehicle" class="icon-btn" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="row-between controls">
+        <input type="text" id="selectVehicleSearch" placeholder="Search by brand/model/plate" />
+        <select id="selectVehicleTypeFilter">
+          <option value="">All types</option>
+        </select>
+      </div>
+
+      <div class="table-responsive mt-2">
+        <table class="table" id="selectVehicleTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>ID</th>
+              <th>Plate</th>
+              <th>Price/Day</th>
+              <th>Price/Hour</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="selectVehicleTableBody">
+            <tr class="muted">
+              <td colspan="6">No vehicles loaded.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer row-between">
+      <div class="muted" id="selectVehicleHint">Choose one vehicle to continue.</div>
+      <div class="actions">
+        <button type="button" id="btnCancelSelectVehicle" class="btn">Cancel</button>
+        <button type="button" id="btnConfirmSelectVehicle" class="btn primary" disabled>Select</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

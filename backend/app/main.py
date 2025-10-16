@@ -1,9 +1,14 @@
 from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from sqlalchemy import text
 
 from .database import Base, engine
 from .routers.contracts import router as contracts_router
+from .routers.car import router as cars_router
+from .routers.car import router_alias as vehicles_router
+from .routers.branch import router as branches_router
+from .routers.cartype import router as cartypes_router
 
 
 def create_app() -> FastAPI:
@@ -12,7 +17,20 @@ def create_app() -> FastAPI:
     # Khởi tạo metadata ORM nếu cần (không ép create_all để tránh khác schema thực tế)
     # Base.metadata.create_all(bind=engine)
 
+    # CORS for local frontend
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     app.include_router(contracts_router)
+    app.include_router(cars_router)
+    app.include_router(vehicles_router)
+    app.include_router(branches_router)
+    app.include_router(cartypes_router)
 
     @app.get("/")
     def root():
@@ -20,6 +38,8 @@ def create_app() -> FastAPI:
             "service": "HoaProject2 - Car Rental API",
             "endpoints": [
                 "/contracts",
+                "/cars",
+                "/car-types",
                 "/health",
                 "/docs",
                 "/redoc",
